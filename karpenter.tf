@@ -883,12 +883,18 @@ resource "kubernetes_mutating_webhook_configuration" "defaulting_webhook_karpent
     }
 
     rule {
-      operations = ["CREATE", "UPDATE"]
-      scope      = "*"
+      operations   = ["CREATE", "UPDATE"]
+      scope        = "*"
+      api_groups   = ["karpenter.k8s.aws"]
+      api_versions = ["v1alpha1"]
+      resources    = ["awsnodetempaltes", "awsnodetemplates/status"]
     }
 
     rule {
-      operations = ["CREATE", "UPDATE"]
+      operations   = ["CREATE", "UPDATE"]
+      resources    = ["provisioners", "provisioners/status"]
+      api_versions = ["v1alpha5"]
+      api_groups   = ["karpenter.sh"]
     }
 
     failure_policy            = "Fail"
@@ -926,7 +932,10 @@ resource "kubernetes_validating_webhook_configuration" "validation_webhook_karpe
     }
 
     rule {
-      operations = ["CREATE", "UPDATE"]
+      operations   = ["CREATE", "UPDATE"]
+      resources    = ["provisioners", "provisioners/status"]
+      api_versions = ["v1alpha5"]
+      api_groups   = ["karpenter.sh"]
     }
 
     failure_policy            = "Fail"
@@ -1005,12 +1014,18 @@ resource "kubernetes_validating_webhook_configuration" "validation_webhook_karpe
     }
 
     rule {
-      operations = ["CREATE", "UPDATE"]
-      scope      = "*"
+      operations   = ["CREATE", "UPDATE"]
+      scope        = "*"
+      api_groups   = ["karpenter.k8s.aws"]
+      api_versions = ["v1alpha1"]
+      resources    = ["awsnodetemplates", "awsnodetemplates/status"]
     }
 
     rule {
-      operations = ["CREATE", "UPDATE"]
+      operations   = ["CREATE", "UPDATE"]
+      resources    = ["provisioners", "provisioners/status"]
+      api_versions = ["v1alpha5"]
+      api_groups   = ["karpenter.sh"]
     }
 
     failure_policy            = "Fail"
